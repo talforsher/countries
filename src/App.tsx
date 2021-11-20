@@ -10,26 +10,35 @@ interface Countries {
 
 interface Country {
   name: string;
-  flags: string;
+  flag: string;
 }
 
 const App = () => {
   const [countries, setCountries] = useState<Country[] | []>([]);
 
   useEffect(() => {
-    axios.get(Api.countries).then((response) =>
-      setCountries(
-        response.data.map(
-          ({ name: { common: name }, flags: { svg: flag } }: Countries) => ({
-            name,
-            flag
-          })
-        )
-      )
-    );
+    axios.get(Api.countries).then((response) => {
+      const NameAndFlag: Country[] = response.data.map(
+        ({ name: { common: name }, flags: { svg: flag } }: Countries) => ({
+          name,
+          flag
+        })
+      );
+      setCountries(NameAndFlag);
+    });
   }, []);
 
-  return <div className="App">{JSON.stringify(countries)}</div>;
+  return (
+    <div className="App">
+      <ul>
+        {countries.map(({ name, flag }) => (
+          <li key={name}>
+            name: {name} flag: {flag}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 export default App;
