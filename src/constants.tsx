@@ -8,4 +8,4 @@ const Api: API = {
 
 const Placeholder = "../public/PH.png";
 
-export { Api };
+export { Api, Placeholder };
