@@ -1,4 +1,16 @@
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  list-style-type: none;
+  border: solid 1px black;
+  padding: 2rem;
+}
+
 .App {
   font-family: sans-serif;
-  text-align: center;
+}
+
+.flag {
+  width: 5rem;
 }

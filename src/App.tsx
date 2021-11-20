@@ -10,7 +10,7 @@ interface Countries {
 
 interface Country {
   name: string;
-  flag: string;
+  flag?: string | null;
 }
 
 const App = () => {
@@ -24,7 +24,7 @@ const App = () => {
           flag
         })
       );
-      setCountries(NameAndFlag);
+      setCountries([{ name: "a Counry", flag: null }, ...NameAndFlag]);
     });
   }, []);
 
@@ -32,8 +32,8 @@ const App = () => {
     <div className="App">
       <ul>
         {countries.map(({ name, flag }) => (
-          <li key={name}>
-            name: {name} flag: <img src={flag} alt={name} />
+          <li className="list-item" key={name}>
+            <img className="flag" src={flag} alt={name} />
           </li>
         ))}
       </ul>
