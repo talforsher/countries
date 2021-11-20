@@ -16,8 +16,10 @@ interface Country {
 
 const App = () => {
   const [countries, setCountries] = useState<Country[] | []>([]);
+  const [lastFetched, setLastFetched] = useState<number>(0);
 
   const fetch = () => {
+    setLastFetched((curr) => curr + 1);
     axios.get(Api.countries).then((response) => {
       const NameAndFlag: Country[] = response.data.map(
         ({ name: { common: name }, flags: { svg: flag } }: Countries) => ({
@@ -25,11 +27,7 @@ const App = () => {
           flag
         })
       );
-      setCountries((curr) => [
-        ...curr,
-        { name: "a Counry", flag: null },
-        ...NameAndFlag
-      ]);
+      setCountries((curr) => [...curr, ...NameAndFlag]);
     });
   };
 
@@ -39,6 +37,7 @@ const App = () => {
 
   return (
     <div className="App">
+      <h1>Times Fetched: {lastFetched}</h1>
       <ul>
         {countries.map(({ name, flag }) => (
           <li className="list-item" key={name}>
