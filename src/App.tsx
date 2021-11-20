@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Api } from "./constants";
 import "./styles.css";
+import Placeholder from "../public/PH.png";
 
 interface Countries {
   name: { common: string };
@@ -37,7 +38,9 @@ const App = () => {
             {flag ? (
               <img className="flag" src={flag} alt={name} />
             ) : (
-              <button style={{ width: "5rem" }}>refetch</button>
+              <button>
+                <img className="flag" src={Placeholder} alt={name} />
+              </button>
             )}
           </li>
         ))}
