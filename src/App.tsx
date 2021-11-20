@@ -25,7 +25,11 @@ const App = () => {
           flag
         })
       );
-      setCountries([{ name: "a Counry", flag: null }, ...NameAndFlag]);
+      setCountries((curr) => [
+        ...curr,
+        { name: "a Counry", flag: null },
+        ...NameAndFlag
+      ]);
     });
   };
 
