@@ -33,7 +33,12 @@ const App = () => {
       <ul>
         {countries.map(({ name, flag }) => (
           <li className="list-item" key={name}>
-            {name} <img className="flag" src={flag} alt={name} />
+            {name}
+            {flag ? (
+              <img className="flag" src={flag} alt={name} />
+            ) : (
+              <button style={{ width: "5rem" }}>refetch</button>
+            )}
           </li>
         ))}
       </ul>
