@@ -33,7 +33,7 @@ const App = () => {
       <ul>
         {countries.map(({ name, flag }) => (
           <li key={name}>
-            name: {name} flag: {flag}
+            name: {name} flag: <img src={flag} alt={name} />
           </li>
         ))}
       </ul>
