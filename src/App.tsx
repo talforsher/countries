@@ -19,6 +19,7 @@ const App = () => {
   const [countries, setCountries] = useState<Country[] | []>([]);
   const [lastFetched, setLastFetched] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [filterQuery, setFilterQuery] = useState<string>("");
 
   const fetch = (itemToRefetch: string | undefined) => {
     setIsLoading(true);
@@ -49,19 +50,24 @@ const App = () => {
       <h1>
         Times Fetched: {isLoading || lastFetched} | {countries.length}
       </h1>
+      <input type="text" onChange={(e) => setFilterQuery(e.target.value)} />
       <ul>
-        {countries.map(({ name, flag }) => (
-          <li className="list-item" key={name}>
-            {name}
-            {flag ? (
-              <img className="flag" src={flag} alt={name} />
-            ) : (
-              <button onClick={() => fetch(name)}>
-                <img className="flag" src={Placeholder} alt={name} />
-              </button>
-            )}
-          </li>
-        ))}
+        {countries
+          .filter((country) =>
+            country.name.toLowerCase().includes(filterQuery.toLocaleLowerCase())
+          )
+          .map(({ name, flag }) => (
+            <li className="list-item" key={name}>
+              {name}
+              {flag ? (
+                <img className="flag" src={flag} alt={name} />
+              ) : (
+                <button disabled={isLoading} onClick={() => fetch(name)}>
+                  <img className="flag" src={Placeholder} alt={name} />
+                </button>
+              )}
+            </li>
+          ))}
       </ul>
     </div>
   );
