@@ -17,7 +17,7 @@ interface Country {
 const App = () => {
   const [countries, setCountries] = useState<Country[] | []>([]);
 
-  useEffect(() => {
+  const fetch = () => {
     axios.get(Api.countries).then((response) => {
       const NameAndFlag: Country[] = response.data.map(
         ({ name: { common: name }, flags: { svg: flag } }: Countries) => ({
@@ -27,6 +27,10 @@ const App = () => {
       );
       setCountries([{ name: "a Counry", flag: null }, ...NameAndFlag]);
     });
+  };
+
+  useEffect(() => {
+    fetch();
   }, []);
 
   return (
@@ -38,7 +42,7 @@ const App = () => {
             {flag ? (
               <img className="flag" src={flag} alt={name} />
             ) : (
-              <button>
+              <button onClick={fetch}>
                 <img className="flag" src={Placeholder} alt={name} />
               </button>
             )}
